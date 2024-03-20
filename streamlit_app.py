@@ -137,6 +137,8 @@ class Page:
 		self.display_candidate_eval_summary(response)
 		
 	def create_page(self):
+		alternative_model = {"chatgpt3.5": "gemini", "gemini": "chatgpt3.5"}
+		chat_client = st.selectbox("Choose a model:", ("chatgpt3.5", "gemini"))
 		self.create_header(displayText="Upload your resume in PDF format.")
 		self.resume_object = self.create_file_widget(fileType="pdf")
 		self.create_header(displayText="Paste the job description here...")
@@ -154,11 +156,11 @@ class Page:
 				self.create_error_message(displayText="Please provide the job description.")
 			if len(self.resume_content.strip()) > 0 and len(self.jd_content.strip()) > 0:
 				try:
-					self.get_response(chat_client='chatgpt3.5')
+					self.get_response(chat_client=chat_client)
 				except Exception as e1:
 					self.create_error_message(displayText=f"Chatgpt failed for {e1}")
 					try:
-						self.get_response(chat_client='gemini')
+						self.get_response(chat_client=alternative_model[chat_client])
 					except Exception as e2:
 						self.create_error_message(displayText=f"Unble to connect to ChatBot at his moment. Please try again later.")
 						self.create_error_message(displayText=f"Gemini failed for {e2}")
