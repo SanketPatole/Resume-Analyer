@@ -20,7 +20,10 @@ uploaded_file = st.file_uploader("Choose a file...", type="pdf")
 text = ""
 
 if uploaded_file is not None:
-	text=input_pdf_text(uploaded_file)
+	try:
+		text=input_pdf_text(uploaded_file)
+	except:
+		st.error('The pdf file is corrupted.', icon="🚨")
 
 st.subheader(text)
 	
