@@ -19,13 +19,14 @@ class GenAI_Wrpapper:
 	def __init__(self, chat_client='chatgpt3.5'):
 		if chat_client == 'chatgpt3.5':
 			self.chat_client = ChatOpenAI(model="gpt-3.5-turbo")
-			self.embedding = OpenAIEmbeddings()
 		elif chat_client == 'chatgpt3.5turbo':
 			self.chat_client = ChatOpenAI(model="gpt-3.5-turbo-instruct")
-			self.embedding = OpenAIEmbeddings()
 		elif chat_client == 'chatgpt4':
 			self.chat_client = ChatOpenAI(model="gpt-4")
-			self.embedding = OpenAIEmbeddings()
+		elif chat_client == 'gemini':
+			genai.configure()
+			self.chat_client = genai.GenerativeModel('gemini-pro')
+		self.embedding = OpenAIEmbeddings()
 	
 	def get_document_splits(self, file_data, chunk_size=1500, chunk_overlap=150):
 		splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
