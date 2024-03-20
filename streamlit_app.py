@@ -144,7 +144,7 @@ class Page:
 			if len(self.jd_content.strip()) == 0:
 				self.create_error_message(displayText="Please provide the job description.")
 			if len(self.resume_content.strip()) > 0 and len(self.jd_content.strip()) > 0:
-				response = self.gen_ai_wrapper_object.run_qa_chain(self.resume_content, self.jd_content, 'chatgpt3.5')
+				response = self.gen_ai_wrapper_object.run_qa_chain(self.resume_content, self.jd_content, 'gemini')
 				self.display_candidate_eval_summary(response)
 	
 page = Page()
