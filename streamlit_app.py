@@ -25,7 +25,7 @@ class Page:
 	def create_error_message(self, displayText="Error"):
 		st.error(displayText, icon="🚨")
 	
-	def create_file_widget(self, displayText="Choose a file..."):
+	def create_file_widget(self, displayText="Choose a file...", fileType="pdf"):
 		return st.file_uploader(displayText=displayText, type=fileType)
 	
 	def create_submit_button(self, displayText="Submit"):
@@ -40,7 +40,7 @@ class Page:
 		
 	def create_page(self):
 		self.create_header(displayText="Upload your resume in PDF format.")
-		self.resume_object = self.create_file_widget()
+		self.resume_object = self.create_file_widget(fileType="pdf")
 		self.create_header(displayText="Upload your resume in PDF format.")
 		self.jd_content = self.create_input_text(displayText="Paste the job description here...", height=150)
 		self.submit = self.create_submit_button(displayText="Submit")
