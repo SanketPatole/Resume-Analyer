@@ -110,7 +110,7 @@ class Page:
 			page = reader.pages[page]
 			self.resume_content += str(page.extract_text())
 		
-	def display_candidate_eval_summary(self, result):
+	def display_candidate_eval_summary(self, results):
 		st.write("### Candidate Evaluation Summary")
 		st.write("#### Strengths")
 		st.write(results['strengths'])
