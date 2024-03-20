@@ -19,13 +19,13 @@ class Page:
 	def create_subheader(self, displayText="Sub-Header"):
 		st.subheader(displayText)
 		
-	def create_input_text(displayText="Input", height=150):
+	def create_input_text(self, displayText="Input", height=150):
 		return st.text_area(displayText, height=height)
 	
 	def create_error_message(self, displayText="Error"):
 		st.error(displayText, icon="🚨")
 	
-	def create_file_widget(self, displayText="Choose a file...")
+	def create_file_widget(self, displayText="Choose a file..."):
 		return st.file_uploader(displayText=displayText, type=fileType)
 	
 	def create_submit_button(self, displayText="Submit"):
