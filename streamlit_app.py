@@ -32,8 +32,8 @@ class GenAI_Wrpapper:
 		splits = splitter.split_text(file_data)
 		return splits
 
-	def create_vectordb_from_document_splits(self, document_splits, embedding):
-		return FAISS.from_textx(document_splits, embedding=embedding)
+	def create_vectordb_from_document_splits(self, document_splits):
+		return FAISS.from_textx(document_splits, embedding=self.embedding)
 	  
 	def get_output_parser(self, ):
 		strengths = ResponseSchema(name="strengths", description="Strengths of the candidate")
@@ -68,7 +68,7 @@ class GenAI_Wrpapper:
 		output_parser = self.get_output_parser()
 		instructions = output_parser.get_format_instructions()
 		document_splits = self.get_document_splits(resume_text, chunk_size=1500, chunk_overlap=150)
-		vectordb = self.create_vectordb_from_document_splits(document_splits, embedding)
+		vectordb = self.create_vectordb_from_document_splits(document_splits)
 		skills = vectordb.similarity_search(query, k=2)
 		chain = self.get_qa_chain(chat_client, prompt)
 		prompt_inputs = {"input_documents": skills, "job_description": job_description_text,
