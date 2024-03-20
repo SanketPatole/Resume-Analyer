@@ -110,6 +110,17 @@ class Page:
 			page = reader.pages[page]
 			self.resume_content += str(page.extract_text())
 		
+	def display_candidate_eval_summary(self, response):
+	st.write("### Candidate Evaluation Summary")
+	st.write("#### Strengths")
+	st.write(results['strengths'])
+	st.write("#### Weaknesses")
+	st.write(results['weaknesses'])
+	st.write("#### Summary")
+	st.write(results['summary'])
+	st.write("#### Shortlisted?")
+	st.write("Yes" if results['is_shortlisted'] == 'Yes' else "No")
+		
 	def create_page(self):
 		self.create_header(displayText="Upload your resume in PDF format.")
 		self.resume_object = self.create_file_widget(fileType="pdf")
@@ -130,7 +141,7 @@ class Page:
 				self.create_error_message(displayText="Please provide the job description.")
 			if len(self.resume_content.strip()) > 0 and len(self.jd_content.strip()) > 0:
 				response = self.gen_ai_wrapper_object.run_qa_chain(self.resume_content, self.jd_content, 'chatgpt3.5')
-				self.create_subheader(displayText=response)
+				self.display_candidate_eval_summary(response)
 	
 page = Page()
 page.create_page()
