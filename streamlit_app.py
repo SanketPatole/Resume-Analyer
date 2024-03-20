@@ -59,8 +59,8 @@ class GenAI_Wrpapper:
 		return PromptTemplate(template=prompt_template_text,
 							input_variables=["context", "job_description", "delimiter_skills", "delimiter_job_description", "instructions"])
 
-	def get_qa_chain(self, chat_client, prompt):
-		return load_qa_chain(llm=chat_client, chain_type="stuff", prompt=prompt)
+	def get_qa_chain(self, prompt):
+		return load_qa_chain(llm=self.chat_client, chain_type="stuff", prompt=prompt)
 		
 	def run_qa_chain(self, resume_text, job_description_text, chat_client):
 		query = "What are the skills and educational qualifications of the candidate?"
