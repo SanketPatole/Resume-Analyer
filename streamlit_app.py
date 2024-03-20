@@ -26,7 +26,7 @@ class Page:
 		st.error(displayText, icon="🚨")
 	
 	def create_file_widget(self, displayText="Choose a file...", fileType="pdf"):
-		return st.file_uploader(displayText=displayText, type=fileType)
+		return st.file_uploader(displayText, type=fileType)
 	
 	def create_submit_button(self, displayText="Submit"):
 		return st.button(displayText)
