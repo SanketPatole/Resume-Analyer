@@ -25,9 +25,20 @@ if uploaded_file is not None:
 	except:
 		st.error('The pdf file is corrupted.', icon="🚨")
 
-st.subheader(text)
+st.header("Enter the job description")
+job_description = st.text_area("Paste the job description here...", height=150)
+
+submit = st.button("Submit")
+
+if submit:
+	if len(text.strip()) == 0:
+		st.error('Please provide a valid resume.', icon="🚨")
+	if len(job_description.strip()) == 0:
+		st.error('Please provide the job description.', icon="🚨")
+	if len(text.strip()) > 0 and len(job_description.strip()) > 0:
+		st.subheader(text)
+
+#st.subheader(text)
 	
 
 
-st.header("Enter the job description")
-job_description = st.text_area("Paste the job description here...", height=150)
