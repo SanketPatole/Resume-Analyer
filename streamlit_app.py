@@ -41,7 +41,7 @@ class GenAI_Wrpapper:
 		summary = ResponseSchema(name="summary", description="Short summary of the analysis mentioning eligibility of the candidate.")
 		is_shortlisted = ResponseSchema(name="is_shortlisted", description="Do candidate's skills match with required skills? (Yes/No)")
 		reason = ResponseSchema(name="reason", description="Reason in one sentence, why the candidate is selected or rejected.")
-		return StructuredOutputParser.from_response_schemas([strengths, weaknesses, summary, is_shortlisted])
+		return StructuredOutputParser.from_response_schemas([strengths, weaknesses, summary, is_shortlisted, reason])
 
 	def get_prompt_template(self, ):
 		prompt_template_text = """
