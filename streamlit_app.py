@@ -64,7 +64,7 @@ class GenAI_Wrpapper:
 	def get_qa_chain(self, prompt):
 		return load_qa_chain(llm=self.chat_client, chain_type="stuff", prompt=prompt)
 		
-	def run_qa_chain(self, resume_text, job_description_text, chat_client):
+	def run_qa_chain(self, resume_text, job_description_text):
 		query = "What are the skills and educational qualifications of the candidate?"
 		prompt = self.get_prompt_template()
 		output_parser = self.get_output_parser()
@@ -85,7 +85,6 @@ class Page:
 		self.resume_content = ""
 		self.jd_content = None
 		self.submit_object = None
-		self.gen_ai_wrapper_object = GenAI_Wrpapper()
 	
 	def create_header(self, displayText="Header"):
 		st.header(displayText)
@@ -126,7 +125,7 @@ class Page:
 		st.write(results['reason'])
 		
 	def get_response(self, chat_client='chatgpt3.5'):
-		response = self.gen_ai_wrapper_object.run_qa_chain(self.resume_content, self.jd_content, chat_client)
+		response = self.GenAI_Wrpapper(chat_client).run_qa_chain(self.resume_content, self.jd_content)
 		self.display_candidate_eval_summary(response)
 		
 	def create_page(self):
