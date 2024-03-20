@@ -22,13 +22,13 @@ class Page:
 	def create_input_text(displayText="Input", height=150):
 		return st.text_area(displayText, height=height)
 	
-	def create_error_message(self, displayText="Error")
+	def create_error_message(self, displayText="Error"):
 		st.error(displayText, icon="🚨")
 	
 	def create_file_widget(self, displayText="Choose a file...")
 		return st.file_uploader(displayText=displayText, type=fileType)
 	
-	def create_submit_button(self, displayText="Submit")
+	def create_submit_button(self, displayText="Submit"):
 		return st.button(displayText)
 
 	def read_pdf_file(self):
@@ -38,7 +38,7 @@ class Page:
 			page = reader.pages[page]
 			self.resume_content += str(page.extract_text())
 		
-	def create_page():
+	def create_page(self):
 		self.create_header(displayText="Upload your resume in PDF format.")
 		self.resume_object = create_file_widget()
 		self.create_header(displayText="Upload your resume in PDF format.")
@@ -59,4 +59,5 @@ class Page:
 			if len(self.resume_content.strip()) > 0 and len(self.jd_content.strip()) > 0:
 				self.create_subheader(displayText=self.resume_content)
 	
-
+page = Page()
+page.create_page()
