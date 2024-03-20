@@ -17,6 +17,7 @@ from langchain.vectorstores import FAISS
 
 class GenAI_Wrpapper:
 	def __init__(self, chat_client='chatgpt3.5'):
+		self.is_gemini = False
 		if chat_client == 'chatgpt3.5':
 			self.chat_client = ChatOpenAI(model="gpt-3.5-turbo")
 		elif chat_client == 'chatgpt3.5turbo':
@@ -26,6 +27,7 @@ class GenAI_Wrpapper:
 		elif chat_client == 'gemini':
 			genai.configure()
 			self.chat_client = genai.GenerativeModel('gemini-pro')
+			self.is_gemini = True
 		self.embedding = OpenAIEmbeddings()
 	
 	def get_document_splits(self, file_data, chunk_size=1500, chunk_overlap=150):
@@ -72,11 +74,17 @@ class GenAI_Wrpapper:
 		document_splits = self.get_document_splits(resume_text, chunk_size=1500, chunk_overlap=150)
 		vectordb = self.create_vectordb_from_document_splits(document_splits)
 		skills = vectordb.similarity_search(query, k=2)
-		chain = self.get_qa_chain(prompt)
-		prompt_inputs = {"input_documents": skills, "job_description": job_description_text,
-					   "delimiter_skills": "###", "delimiter_job_description": "$$$", "instructions": instructions}
-		response = chain(prompt_inputs, return_only_outputs=True)
-		response_dict = output_parser.parse(response["output_text"])
+		response = ""
+		if self.is_gemini == False:
+			chain = self.get_qa_chain(prompt)
+			prompt_inputs = {"input_documents": skills, "job_description": job_description_text,
+						   "delimiter_skills": "###", "delimiter_job_description": "$$$", "instructions": instructions}
+			response = chain(prompt_inputs, return_only_outputs=True)
+			response = response["output_text"]
+		else:
+			response=self.chat_client.generate_content(prompt.format(delimiter_job_description="$$$",
+			delimiter_skills="###", context=skills, job_description=job_description_text, instructions=instructions)).text
+		response_dict = output_parser.parse(response)
 		return response_dict
 
 class Page:
