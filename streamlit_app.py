@@ -51,7 +51,7 @@ class Page:
 			except Exception as e:
 				self.create_error_message(displayText=f"The pdf file is corrupted.\nError: {e}")
 		
-		if self.submit_object is not None:
+		if self.submit_object:
 			if len(self.resume_content.strip()) == 0:
 				self.create_error_message(displayText="Please provide a valid resume.")
 			if len(self.jd_content.strip()) == 0:
