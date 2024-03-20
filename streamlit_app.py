@@ -110,7 +110,7 @@ class Page:
 			page = reader.pages[page]
 			self.resume_content += str(page.extract_text())
 		
-	def display_candidate_eval_summary(self, response):
+	def display_candidate_eval_summary(self, result):
 		st.write("### Candidate Evaluation Summary")
 		st.write("#### Strengths")
 		st.write(results['strengths'])
@@ -124,7 +124,7 @@ class Page:
 	def create_page(self):
 		self.create_header(displayText="Upload your resume in PDF format.")
 		self.resume_object = self.create_file_widget(fileType="pdf")
-		self.create_header(displayText="Upload your resume in PDF format.")
+		self.create_header(displayText="Paste the job description here...")
 		self.jd_content = self.create_input_text(displayText="Paste the job description here...", height=150)
 		self.submit_object = self.create_submit_button(displayText="Submit")
 		
