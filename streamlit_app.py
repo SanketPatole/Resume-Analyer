@@ -40,6 +40,7 @@ class GenAI_Wrpapper:
 		weaknesses = ResponseSchema(name="weaknesses", description="Weaknesses of the candidate.")
 		summary = ResponseSchema(name="summary", description="Short summary of the analysis mentioning eligibility of the candidate.")
 		is_shortlisted = ResponseSchema(name="is_shortlisted", description="Do candidate's skills match with required skills? (Yes/No)")
+		reason = ResponseSchema(name="reason", description="Reason in one sentence, why the candidate is selected or rejected.")
 		return StructuredOutputParser.from_response_schemas([strengths, weaknesses, summary, is_shortlisted])
 
 	def get_prompt_template(self, ):
@@ -120,6 +121,8 @@ class Page:
 		st.write(results['summary'])
 		st.write("#### Shortlisted?")
 		st.write("Yes" if results['is_shortlisted'] == 'Yes' else "No")
+		st.write(f"#### Reason for candidate's {'selection' if results['is_shortlisted'] == 'Yes' else 'rejection'}")
+		st.write(results['reason'])
 		
 	def create_page(self):
 		self.create_header(displayText="Upload your resume in PDF format.")
