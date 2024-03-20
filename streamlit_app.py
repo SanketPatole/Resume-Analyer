@@ -125,27 +125,33 @@ class Page:
 		st.write(f"#### Reason for candidate's {'selection' if results['is_shortlisted'] == 'Yes' else 'rejection'}")
 		st.write(results['reason'])
 		
+	def get_response(self, chat_client='chatgpt3.5'):
+		response = self.gen_ai_wrapper_object.run_qa_chain(self.resume_content, self.jd_content, chat_client)
+		self.display_candidate_eval_summary(response)
+		
 	def create_page(self):
 		self.create_header(displayText="Upload your resume in PDF format.")
 		self.resume_object = self.create_file_widget(fileType="pdf")
 		self.create_header(displayText="Paste the job description here...")
 		self.jd_content = self.create_input_text(displayText="Paste the job description here...", height=150)
 		self.submit_object = self.create_submit_button(displayText="Submit")
-		
 		if self.resume_object is not None:
 			try:
 				self.read_pdf_file()
 			except Exception as e:
 				self.create_error_message(displayText=f"The pdf file is corrupted.\nError: {e}")
-		
 		if self.submit_object:
 			if len(self.resume_content.strip()) == 0:
 				self.create_error_message(displayText="Please provide a valid resume.")
 			if len(self.jd_content.strip()) == 0:
 				self.create_error_message(displayText="Please provide the job description.")
 			if len(self.resume_content.strip()) > 0 and len(self.jd_content.strip()) > 0:
-				response = self.gen_ai_wrapper_object.run_qa_chain(self.resume_content, self.jd_content, 'gemini')
-				self.display_candidate_eval_summary(response)
-	
+				try:
+					self.get_response(chat_client='chatgpt3.5')
+				except Exception as e:
+					try:
+						self.get_response(chat_client='gemini')
+					except Exception as e:
+						self.create_error_message(displayText=f"Unble to connect to ChatBot at his moment. Please try again later.")
 page = Page()
 page.create_page()
