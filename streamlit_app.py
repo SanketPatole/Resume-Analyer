@@ -49,7 +49,7 @@ class Page:
 			try:
 				read_pdf_file()
 			except Exception as e:
-				self.create_error_message(displayText=f"The pdf file is corrupted.\nError: {fileType="pdf}")
+				self.create_error_message(displayText=f"The pdf file is corrupted.\nError: {e}")
 		
 		if self.submit_object is not None:
 			if len(self.resume_content.strip()) == 0:
