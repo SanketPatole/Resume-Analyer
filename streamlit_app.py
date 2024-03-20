@@ -43,7 +43,7 @@ class Page:
 		self.resume_object = self.create_file_widget(fileType="pdf")
 		self.create_header(displayText="Upload your resume in PDF format.")
 		self.jd_content = self.create_input_text(displayText="Paste the job description here...", height=150)
-		self.submit = self.create_submit_button(displayText="Submit")
+		self.submit_object = self.create_submit_button(displayText="Submit")
 		
 		if self.resume_object is not None:
 			try:
