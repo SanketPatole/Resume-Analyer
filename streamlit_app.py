@@ -147,10 +147,12 @@ class Page:
 			if len(self.resume_content.strip()) > 0 and len(self.jd_content.strip()) > 0:
 				try:
 					self.get_response(chat_client='chatgpt3.5')
-				except Exception as e:
+				except Exception as e1:
+					self.create_error_message(displayText=f"Chatgpt failed for {e1}")
 					try:
 						self.get_response(chat_client='gemini')
-					except Exception as e:
+					except Exception as e2:
 						self.create_error_message(displayText=f"Unble to connect to ChatBot at his moment. Please try again later.")
+						self.create_error_message(displayText=f"Gemini failed for {e2}")
 page = Page()
 page.create_page()
