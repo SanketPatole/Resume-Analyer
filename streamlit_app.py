@@ -47,7 +47,7 @@ class Page:
 		
 		if self.resume_object is not None:
 			try:
-				read_pdf_file()
+				self.read_pdf_file()
 			except Exception as e:
 				self.create_error_message(displayText=f"The pdf file is corrupted.\nError: {e}")
 		
