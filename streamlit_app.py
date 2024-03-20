@@ -33,7 +33,7 @@ class GenAI_Wrpapper:
 		return splits
 
 	def create_vectordb_from_document_splits(self, document_splits):
-		return FAISS.from_textx(document_splits, embedding=self.embedding)
+		return FAISS.from_texts(document_splits, embedding=self.embedding)
 	  
 	def get_output_parser(self, ):
 		strengths = ResponseSchema(name="strengths", description="Strengths of the candidate")
