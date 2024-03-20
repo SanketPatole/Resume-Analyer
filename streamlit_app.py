@@ -125,7 +125,7 @@ class Page:
 		st.write(results['reason'])
 		
 	def get_response(self, chat_client='chatgpt3.5'):
-		response = self.GenAI_Wrpapper(chat_client).run_qa_chain(self.resume_content, self.jd_content)
+		response = GenAI_Wrpapper(chat_client).run_qa_chain(self.resume_content, self.jd_content)
 		self.display_candidate_eval_summary(response)
 		
 	def create_page(self):
