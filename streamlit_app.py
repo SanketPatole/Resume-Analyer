@@ -154,7 +154,7 @@ class Page:
 				self.create_error_message(displayText="Please provide the job description.")
 			if len(self.resume_content.strip()) > 0 and len(self.jd_content.strip()) > 0:
 				try:
-					self.get_response(chat_client='gemini')
+					self.get_response(chat_client='chatgpt3.5')
 				except Exception as e1:
 					self.create_error_message(displayText=f"Chatgpt failed for {e1}")
 					try:
