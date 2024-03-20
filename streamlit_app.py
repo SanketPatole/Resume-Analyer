@@ -28,6 +28,3 @@ st.subheader(text)
 
 st.header("Enter the job description")
 job_description = st.text_area("Paste the job description here...", height=150)
-
-st.header("Enter the job description")
-job_description = st.text_area("Paste the job description here...", height=150)
