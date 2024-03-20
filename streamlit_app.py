@@ -70,7 +70,7 @@ class GenAI_Wrpapper:
 		document_splits = self.get_document_splits(resume_text, chunk_size=1500, chunk_overlap=150)
 		vectordb = self.create_vectordb_from_document_splits(document_splits)
 		skills = vectordb.similarity_search(query, k=2)
-		chain = self.get_qa_chain(chat_client, prompt)
+		chain = self.get_qa_chain(prompt)
 		prompt_inputs = {"input_documents": skills, "job_description": job_description_text,
 					   "delimiter_skills": "###", "delimiter_job_description": "$$$", "instructions": instructions}
 		response = chain(prompt_inputs, return_only_outputs=True)
