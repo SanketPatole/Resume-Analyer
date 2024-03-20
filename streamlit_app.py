@@ -13,8 +13,11 @@ class Page:
 		self.jd_content = None
 		self.submit_object = None
 	
-	def create_header(self, displayText="Header")
+	def create_header(self, displayText="Header"):
 		st.header(displayText)
+	
+	def create_subheader(self, displayText="Sub-Header"):
+		st.subheader(displayText)
 		
 	def create_input_text(displayText="Input", height=150):
 		return st.text_area(displayText, height=height)
@@ -54,6 +57,6 @@ class Page:
 			if len(self.jd_content.strip()) == 0:
 				self.create_error_message(displayText="Please provide the job description.")
 			if len(self.resume_content.strip()) > 0 and len(self.jd_content.strip()) > 0:
-				st.subheader("Sumitted")
+				self.create_subheader(displayText=self.resume_content)
 	
 
